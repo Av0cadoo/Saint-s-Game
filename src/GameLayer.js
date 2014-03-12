@@ -5,8 +5,13 @@ var GameLayer = cc.LayerColor.extend({
         this.setKeyboardEnabled( true );
         this.scheduleUpdate();
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+        this.scoreLabel.setPosition( new cc.Point( 10, 570 ) );
         this.addChild( this.scoreLabel );
+        //this.box = new box();
+        //this.box.setPosition( new cc.Point( 500, 500 ) );
+        //this.addChild( this.box );
+        this.field = new field();
+        this.addChild( this.field );
         
         return true;
     }
