@@ -15,6 +15,7 @@
             'src/GameLayer.js'     //add your own files in order here
             ,'src/box.js'
             ,'src/field.js'
+            ,'src/player.js'
         ]
     };
 

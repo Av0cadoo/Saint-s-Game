@@ -7,22 +7,36 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
         this.scoreLabel.setPosition( new cc.Point( 10, 570 ) );
         this.addChild( this.scoreLabel );
-        //this.box = new box();
-        //this.box.setPosition( new cc.Point( 500, 500 ) );
-        //this.addChild( this.box );
         this.field = new field();
         this.addChild( this.field );
+        this.field.scheduleUpdate();
+        this.player = new player();
+        this.addChild( this.player );
+        this.player.scheduleUpdate();
         
         return true;
     }
 
     ,onKeyDown: function( e ) {
-        
+        if( e == cc.KEY.w ) {
+            this.player.switchDirection( -1 );
+            console.log(this.field.children);
+        }
+        else if( e == cc.KEY.d ) {
+            this.player.switchDirection( -2 );
+        }
+        else if( e == cc.KEY.a ) {
+            this.player.switchDirection( -3 );
+
+        }
+        else if( e == cc.KEY.s ) {
+            this.player.switchDirection( -4 );
+        }       
        
     }
 
     ,update: function() {
-        
+        this.field.changeMap( this.player.getX(), this.player.getY(), this.player.getColor() );
         
     }
     
