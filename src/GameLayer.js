@@ -4,39 +4,68 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
         this.setKeyboardEnabled( true );
         this.scheduleUpdate();
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 10, 570 ) );
-        this.addChild( this.scoreLabel );
+
+        //field
         this.field = new field();
         this.addChild( this.field );
-        this.field.scheduleUpdate();
-        this.player = new player();
+
+        //player
+        this.player = new player( 'red' );
         this.addChild( this.player );
-        this.player.scheduleUpdate();
+
+        //p2
+        this.player2 = new player( 'green' );
+        this.addChild( this.player2 );
         
         return true;
     }
 
     ,onKeyDown: function( e ) {
-        if( e == cc.KEY.w ) {
-            this.player.switchDirection( -1 );
-            console.log(this.field.children);
-        }
-        else if( e == cc.KEY.d ) {
-            this.player.switchDirection( -2 );
-        }
-        else if( e == cc.KEY.a ) {
-            this.player.switchDirection( -3 );
+       switch( e ) {
+        case 65:
+            //left
+            this.player.setDir( 3 );
+            break;
+        case 87:
+            //up
+            this.player.setDir( 1 );
+            break;
+        case 68:
+            //right
+            this.player.setDir( 4 );
+            break;
+        case 83:
+            //down
+            this.player.setDir( 2 );
+            break;
 
-        }
-        else if( e == cc.KEY.s ) {
-            this.player.switchDirection( -4 );
-        }       
-       
+        case 37:
+            //left
+            this.player2.setDir( 3 );
+            break;
+        case 38:
+            //up
+            this.player2.setDir( 1 );
+            break;
+        case 39:
+            //right
+            this.player2.setDir( 4 );
+            break;
+        case 40:
+            //down
+            this.player2.setDir( 2 );
+            break;
+
+        case 32:
+            console.log(this.field.getRedScore());
+       }
+
+
     }
 
     ,update: function() {
         this.field.changeMap( this.player.getX(), this.player.getY(), this.player.getColor() );
+        this.field.changeMap( this.player2.getX(), this.player2.getY(), this.player2.getColor() );
         
     }
     

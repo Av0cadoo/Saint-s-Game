@@ -13,6 +13,8 @@ var field = cc.Node.extend({
             '########',
             '########'
         ];
+
+        //create array that collect box obj.
         this.boxArray = new Array(8);
         for( var i = 0; i < 8; i++) {
         	this.boxArray[ i ] = new Array(8);
@@ -22,6 +24,8 @@ var field = cc.Node.extend({
         		this.boxArray[ i ][ j ] = new box(); 
         	}
         }
+
+        //draw field
 		for ( var r = 0; r < 8; r++ ) {
 			for( var c = 0; c < 8; c++ ){
 				if ( this.MAP[ r ][ c ] == '#' ) {
@@ -34,32 +38,64 @@ var field = cc.Node.extend({
 
 	}
 	,changeMap: function( x, y, color ) {
-		this.boxArray[ x ][ y ].changeColor( color );
-		/*if( color == 'green' ){
-			this.MAP[ x ][ y ] = 'g';
-		}
-		else if( color == 'red' ){
+		if( color == 'red' ) {
 			this.MAP[ x ][ y ] = 'r';
 		}
-		else if( color == 'blue' ){
+		else if( color == 'green' ) {
+			this.MAP[ x ][ y ] = 'g';
+		}
+		else if( color == 'blue' ) {
 			this.MAP[ x ][ y ] = 'b';
 		}
-		else if( color == 'pink' ){
+		else if( color == 'pink' ) {
 			this.MAP[ x ][ y ] = 'p';
-		}*/
-		
+		}
+		this.boxArray[ x ][ y ].changeColor( color );
 	}
-	/*,update: function() {
+	,getRedScore: function() {
+		var score = 0;
 		for ( var r = 0; r < 8; r++ ) {
 			for( var c = 0; c < 8; c++ ){
-				if ( this.MAP[ r ][ c ] == 'g' ) {
-	   	 			this.boxArray[ r ][ c ].changeColor( 'green' );
-				}
-				else if ( this.MAP[ r ][ c ] == 'r' ) {
-	   	 			this.boxArray[ r ][ c ].changeColor( 'red' );
+				if ( this.MAP[ r ][ c ] == 'r' ) {
+	   	 			score++;
 				}
 			}	
 		}
-	}*/
+		return score;
+	}
+	,getGreenScore: function() {
+		var score = 0;
+		for ( var r = 0; r < 8; r++ ) {
+			for( var c = 0; c < 8; c++ ){
+				if ( this.MAP[ r ][ c ] == 'g' ) {
+	   	 			score++;
+				}
+			}	
+		}
+		return score;
+	}
+	,getBlueScore: function() {
+		var score = 0;
+		for ( var r = 0; r < 8; r++ ) {
+			for( var c = 0; c < 8; c++ ){
+				if ( this.MAP[ r ][ c ] == 'b' ) {
+	   	 			score++;
+				}
+			}	
+		}
+		return score;
+	}
+	,getPinkScore: function() {
+		var score = 0;
+		for ( var r = 0; r < 8; r++ ) {
+			for( var c = 0; c < 8; c++ ){
+				if ( this.MAP[ r ][ c ] == 'p' ) {
+	   	 			score++;
+				}
+			}	
+		}
+		return score;
+	}
+
 
 })

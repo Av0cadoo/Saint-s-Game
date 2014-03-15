@@ -1,7 +1,7 @@
 var box = cc.Sprite.extend({
 	ctor: function() {
 		this._super();
-		this.initWithFile("images/box.png", cc.rect(0, 0, 100, 75));
+		this.initWithFile('images/box.png', cc.rect(0, 0, 100, 75));
 	}
 
 	,changeColor: function( color ) {
