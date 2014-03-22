@@ -4,16 +4,26 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
         this.setKeyboardEnabled( true );
         this.scheduleUpdate();
+        this.schedule(this.timeUpdate, 1, Infinity, 0);
 
         //field
         this.field = new field();
         this.addChild( this.field );
 
+        //time
+        this.time = 5;
+        this.scoreLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
+        this.scoreLabel.setPosition( new cc.Point( 70, 550 ) );
+        this.addChild( this.scoreLabel );
+        this.scoreLabel2 = cc.LabelTTF.create( this.time, 'Arial', 30 );
+        this.scoreLabel2.setPosition( new cc.Point( 140, 550 ) );
+        this.addChild( this.scoreLabel2 );
+
         //player
         this.player = new player( 'red' );
         this.addChild( this.player );
 
-        //p2
+        //player2
         this.player2 = new player( 'green' );
         this.addChild( this.player2 );
         
@@ -30,7 +40,7 @@ var GameLayer = cc.LayerColor.extend({
             //up
             this.player.setDir( 1 );
             break;
-        case 68:
+        case 68:                                                   //w a s d
             //right
             this.player.setDir( 4 );
             break;
@@ -47,7 +57,7 @@ var GameLayer = cc.LayerColor.extend({
             //up
             this.player2.setDir( 1 );
             break;
-        case 39:
+        case 39:                                                   // arrow key
             //right
             this.player2.setDir( 4 );
             break;
@@ -57,7 +67,7 @@ var GameLayer = cc.LayerColor.extend({
             break;
 
         case 32:
-            console.log(this.field.getRedScore());
+            this.playAgain();
        }
 
 
@@ -66,6 +76,31 @@ var GameLayer = cc.LayerColor.extend({
     ,update: function() {
         this.field.changeMap( this.player.getX(), this.player.getY(), this.player.getColor() );
         this.field.changeMap( this.player2.getX(), this.player2.getY(), this.player2.getColor() );
+        
+    }
+    ,timeUpdate: function() {
+        if( this.time >0 ){
+            this.time--;
+        }
+        if( this.time === 0 ) {
+            this.player.stop();
+            this.player2.stop();
+            this.showRank();
+            this.time = '0';
+        }
+        this.scoreLabel2.setString(this.time);
+    }
+    ,playAgain: function() {
+        this.time = 5;
+        this.field.reset();
+        this.player.reset();
+        this.player2.reset();
+    }
+    ,showRank: function() {
+        for( var i = 0; i < 4; i++ ){
+            console.log( ( i+1 ) + '. ' + this.field.getRank()[ i ] );
+        }
+        console.log( '\n' + this.field.getWinner() );
         
     }
     

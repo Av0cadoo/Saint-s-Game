@@ -5,20 +5,24 @@ var player = cc.Sprite.extend({
 		//this.setPosition( cc.p( 250, 565 ) ); //leftup
 		//this.setPosition( cc.p( 250, 40 ) ); //leftdown
 		//this.setPosition( cc.p( 950, 565 ) ); //rightup
-		this.setPosition( cc.p( 950, 40 ) );//rightdown
+		//this.setPosition( cc.p( 950, 40 ) );//rightdown
+
 
 		if( color == 'red' ) {
 			this.initWithFile('images/blue-mushroom.png', cc.rect(0, 0, 160/3, 53.75));
 			this.setPosition( cc.p( 250, 40 ) );
 			this.x = 7;
+			this.dir = 4;
+			this.y = 0;
 		}
 		else {
 			this.initWithFile('images/blue-mushroom.png', cc.rect(160/3, 0, 160/3, 53.75));
-			this.x = ;
+			this.setPosition( cc.p( 250, 565 ) );
+			this.x = 0;
+			this.dir = 4;
+			this.y = 0;
 		}
 		this.color = color;
-		this.dir = 4;
-		this.y = 0;
 		this.pos = this.getPosition();
 		this.schedule(this.move, 0.25, Infinity, 0);
 	}
@@ -58,6 +62,24 @@ var player = cc.Sprite.extend({
 		}
 		else if( this.dir == 4 ) {
 			this.setFlippedX(true);
+		}
+	}
+	,stop: function() {
+		this.unschedule( this.move );
+	}
+	,reset: function() {
+		this.schedule(this.move, 0.25, Infinity, 0);
+		if( this.color == 'red' ) {
+			this.setPosition( cc.p( 250, 40 ) );
+			this.x = 7;
+			this.y = 0;
+			this.dir = 4;
+		}
+		else {
+			this.setPosition( cc.p( 250, 565 ) );
+			this.x = 0;
+			this.y = 0;
+			this.dir = 4;
 		}
 	}
 	,getX: function() {

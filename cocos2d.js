@@ -16,6 +16,7 @@
             ,'src/box.js'
             ,'src/field.js'
             ,'src/player.js'
+            ,'src/timeup.js'
         ]
     };
 
