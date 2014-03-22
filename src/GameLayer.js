@@ -3,8 +3,7 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color4B( 45, 45, 45, 45 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.setKeyboardEnabled( true );
-        this.scheduleUpdate();
-        this.schedule(this.timeUpdate, 1, Infinity, 0);
+        
 
         //field
         this.field = new field();
@@ -12,12 +11,12 @@ var GameLayer = cc.LayerColor.extend({
 
         //time
         this.time = 5;
-        this.scoreLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
-        this.scoreLabel.setPosition( new cc.Point( 70, 550 ) );
-        this.addChild( this.scoreLabel );
-        this.scoreLabel2 = cc.LabelTTF.create( this.time, 'Arial', 30 );
-        this.scoreLabel2.setPosition( new cc.Point( 140, 550 ) );
-        this.addChild( this.scoreLabel2 );
+        this.timeLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
+        this.timeLabel.setPosition( new cc.Point( 70, 550 ) );
+        this.addChild( this.timeLabel );
+        this.timeLabel2 = cc.LabelTTF.create( this.time, 'Arial', 30 );
+        this.timeLabel2.setPosition( new cc.Point( 140, 550 ) );
+        this.addChild( this.timeLabel2 );
 
         //player
         this.player = new player( 'red' );
@@ -65,9 +64,14 @@ var GameLayer = cc.LayerColor.extend({
             //down
             this.player2.setDir( 2 );
             break;
-
         case 32:
             this.playAgain();
+            break;
+        case 13:
+            this.startGame();
+            break;
+        default:
+            console.log(e);
        }
 
 
@@ -79,29 +83,47 @@ var GameLayer = cc.LayerColor.extend({
         
     }
     ,timeUpdate: function() {
-        if( this.time >0 ){
+        if( this.time >= 0 ){
             this.time--;
+            if( this.time >= 0 ) { 
+                this.timeLabel2.setString( this.time );
+            }
         }
-        if( this.time === 0 ) {
-            this.player.stop();
-            this.player2.stop();
+        if( this.time < 0 ) {
+            this.stopGame();
+            alert( "time's up ~" );
             this.showRank();
-            this.time = '0';
+            alert( "=======================================\nPress spacebar to play again.\n=======================================" );
         }
-        this.scoreLabel2.setString(this.time);
+        
+    }
+    ,stopGame: function() {
+        this.player.stop();
+        this.player2.stop();
+        this.unschedule( this.timeUpdate );
+    }
+    ,startGame: function() {
+        if ( this.time != 5 ) return;
+        this.player.schedule( this.player.move, 0.25, Infinity, 0 );
+        this.player2.schedule( this.player.move, 0.25, Infinity, 0 );
+        this.scheduleUpdate();
+        this.schedule( this.timeUpdate, 1, Infinity, 0 );
     }
     ,playAgain: function() {
+        this.stopGame();
         this.time = 5;
+        this.timeLabel2.setString( this.time );
         this.field.reset();
         this.player.reset();
         this.player2.reset();
     }
     ,showRank: function() {
+        var temp = '======= RANK =======\n';
         for( var i = 0; i < 4; i++ ){
-            console.log( ( i+1 ) + '. ' + this.field.getRank()[ i ] );
+            temp += ( i+1 ) + '. ' + this.field.getRank()[ i ] + '\n';
         }
-        console.log( '\n' + this.field.getWinner() );
-        
+        temp += '========================\n' + this.field.getWinner() + '\n========================';
+        alert(temp);
     }
     
 });

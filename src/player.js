@@ -24,7 +24,7 @@ var player = cc.Sprite.extend({
 		}
 		this.color = color;
 		this.pos = this.getPosition();
-		this.schedule(this.move, 0.25, Infinity, 0);
+
 	}
 	,move: function() {
 		switch( this.dir ) {
@@ -68,7 +68,6 @@ var player = cc.Sprite.extend({
 		this.unschedule( this.move );
 	}
 	,reset: function() {
-		this.schedule(this.move, 0.25, Infinity, 0);
 		if( this.color == 'red' ) {
 			this.setPosition( cc.p( 250, 40 ) );
 			this.x = 7;
