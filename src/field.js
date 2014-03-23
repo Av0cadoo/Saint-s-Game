@@ -46,8 +46,8 @@ var field = cc.Node.extend({
 		else if( color == 'blue' ) {
 			this.MAP[ x ][ y ] = 'b';
 		}
-		else if( color == 'pink' ) {
-			this.MAP[ x ][ y ] = 'p';
+		else if( color == 'orange' ) {
+			this.MAP[ x ][ y ] = 'o';
 		}
 		this.boxArray[ x ][ y ].changeColor( color );
 	}
@@ -103,11 +103,11 @@ var field = cc.Node.extend({
 		}
 		return score;
 	}
-	,getPinkScore: function() {
+	,getorangeScore: function() {
 		var score = 0;
 		for ( var r = 0; r < 8; r++ ) {
 			for( var c = 0; c < 8; c++ ){
-				if ( this.MAP[ r ][ c ] == 'p' ) {
+				if ( this.MAP[ r ][ c ] == 'o' ) {
 	   	 			score++;
 				}
 			}	
@@ -118,21 +118,21 @@ var field = cc.Node.extend({
 		var name = [];
 		var redScore = this.getRedScore();
 		var greenScore = this.getGreenScore();
-		var pinkScore = this.getPinkScore();
+		var orangeScore = this.getorangeScore();
 		var blueScore =  this.getBlueScore();
 		if ( score == redScore ) { name.push( 'RED' ); }
 		if ( score == greenScore ) { name.push( 'GREEN' ); }
-		if ( score == pinkScore ) { name.push( 'PINK' ); }
+		if ( score == orangeScore ) { name.push( 'ORANGE' ); }
 		if ( score == blueScore ) {  name.push( 'BLUE' ); }
 		return name;
 	}
 	,getRank: function() {
 		var redScore = this.getRedScore();
 		var greenScore = this.getGreenScore();
-		var pinkScore = this.getPinkScore();
+		var orangeScore = this.getorangeScore();
 		var blueScore =  this.getBlueScore();
 		var rank = [];
-		var scoreArray = [ redScore, greenScore, pinkScore, blueScore ];
+		var scoreArray = [ redScore, greenScore, orangeScore, blueScore ];
 		scoreArray.sort( function ( a,b ){ return b - a } );
 
 		for ( var i = 0; i < 4; i++ ) {
@@ -144,9 +144,9 @@ var field = cc.Node.extend({
 				rank[i] = 'Green : ' + scoreArray[i];
 				greenScore = -1;
 			} 
-			else if( scoreArray[ i ] == pinkScore ) {
-				rank[i] = 'Pink : ' + scoreArray[i]; 
-				pinkScore = -1;
+			else if( scoreArray[ i ] == orangeScore ) {
+				rank[i] = 'ORANGE : ' + scoreArray[i]; 
+				orangeScore = -1;
 			}
 			else if( scoreArray[ i ] == blueScore ) {
 				rank[i] = 'Blue : ' + scoreArray[i]; 
@@ -160,9 +160,9 @@ var field = cc.Node.extend({
 		var string = '';
 		var redScore = this.getRedScore();
 		var greenScore = this.getGreenScore();
-		var pinkScore = this.getPinkScore();
+		var orangeScore = this.getorangeScore();
 		var blueScore =  this.getBlueScore();
-		var scoreArray = [ redScore, greenScore, pinkScore, blueScore ];
+		var scoreArray = [ redScore, greenScore, orangeScore, blueScore ];
 		scoreArray.sort( function( a,b ){ return b-a } );
 
 		winner = this.getName( scoreArray[ 0 ] );

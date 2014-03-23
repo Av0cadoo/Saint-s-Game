@@ -17,6 +17,7 @@
             ,'src/field.js'
             ,'src/player.js'
             ,'src/timeup.js'
+            ,'src/resource.js'
         ]
     };
 
