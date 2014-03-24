@@ -103,7 +103,7 @@ var field = cc.Node.extend({
 		}
 		return score;
 	}
-	,getorangeScore: function() {
+	,getOrangeScore: function() {
 		var score = 0;
 		for ( var r = 0; r < 8; r++ ) {
 			for( var c = 0; c < 8; c++ ){
@@ -118,7 +118,7 @@ var field = cc.Node.extend({
 		var name = [];
 		var redScore = this.getRedScore();
 		var greenScore = this.getGreenScore();
-		var orangeScore = this.getorangeScore();
+		var orangeScore = this.getOrangeScore();
 		var blueScore =  this.getBlueScore();
 		if ( score == redScore ) { name.push( 'RED' ); }
 		if ( score == greenScore ) { name.push( 'GREEN' ); }
@@ -129,7 +129,7 @@ var field = cc.Node.extend({
 	,getRank: function() {
 		var redScore = this.getRedScore();
 		var greenScore = this.getGreenScore();
-		var orangeScore = this.getorangeScore();
+		var orangeScore = this.getOrangeScore();
 		var blueScore =  this.getBlueScore();
 		var rank = [];
 		var scoreArray = [ redScore, greenScore, orangeScore, blueScore ];
@@ -160,7 +160,7 @@ var field = cc.Node.extend({
 		var string = '';
 		var redScore = this.getRedScore();
 		var greenScore = this.getGreenScore();
-		var orangeScore = this.getorangeScore();
+		var orangeScore = this.getOrangeScore();
 		var blueScore =  this.getBlueScore();
 		var scoreArray = [ redScore, greenScore, orangeScore, blueScore ];
 		scoreArray.sort( function( a,b ){ return b-a } );

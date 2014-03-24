@@ -69,14 +69,14 @@ var player = cc.Sprite.extend({
 			case 1:
 				if( this.x > 0 ) {
 					this.setPosition( new cc.Point( this.pos.x , this.pos.y + 75 ));
-					cc.AudioEngine.getInstance().playMusic( 'sounds/poring.mp3' );
+					cc.AudioEngine.getInstance().playEffect( 'sounds/poring.mp3' );
 					this.x--;
 				}
 				break;
 			case 2:
 				if( this.x < 7 ) {
 					this.setPosition( new cc.Point( this.pos.x , this.pos.y - 75 ));
-					cc.AudioEngine.getInstance().playMusic( 'sounds/poring.mp3' );
+					cc.AudioEngine.getInstance().playEffect( 'sounds/poring.mp3' );
 					this.x++;
 				}
 				break;
@@ -84,14 +84,14 @@ var player = cc.Sprite.extend({
 				
 				if( this.y > 0 ) {
 					this.setPosition( new cc.Point( this.pos.x - 100, this.pos.y ));
-					cc.AudioEngine.getInstance().playMusic( 'sounds/poring.mp3' );
+					cc.AudioEngine.getInstance().playEffect( 'sounds/poring.mp3' );
 					this.y--;
 				}
 				break;
 			case 4:
 				if( this.y < 7 ) {
 					this.setPosition( new cc.Point( this.pos.x + 100, this.pos.y ));
-					cc.AudioEngine.getInstance().playMusic( 'sounds/poring.mp3' );
+					cc.AudioEngine.getInstance().playEffect( 'sounds/poring.mp3' );
 					this.y++;
 				}
 				break;

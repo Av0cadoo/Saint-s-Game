@@ -16,8 +16,9 @@
             ,'src/box.js'
             ,'src/field.js'
             ,'src/player.js'
-            ,'src/timeup.js'
+            ,'src/time.js'
             ,'src/resource.js'
+            ,'src/rankStat.js'
         ]
     };
 

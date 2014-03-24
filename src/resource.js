@@ -69,6 +69,7 @@ var g_resources = [
     ,{src: 'images2/player/marin/15.png' }
     ,{src: 'images2/player/marin/16.png' }
     ,{src: 'images2/player/marin/17.png' }
+    ,{src: 'images2/timeup.png'}
 
     //plist
 
@@ -80,4 +81,6 @@ var g_resources = [
 
     //effect
     ,{src: 'sounds/poring.mp3' }
+    ,{src: 'sounds/ReturnToProntera.mp3' }
+    ,{src: 'sounds/time1.mp3' }
 ];

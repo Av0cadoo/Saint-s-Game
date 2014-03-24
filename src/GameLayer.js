@@ -3,22 +3,17 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color4B( 136, 136, 136, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.setKeyboardEnabled( true );
-        this.isStop = true;
+        this.isMusicPlaying = true;
+        cc.AudioEngine.getInstance().playMusic( 'sounds/26.mp3', true );
 
         //field
         this.field = new field();
         this.addChild( this.field );
 
-        //time
-        this.time = 15;
-        this.timeLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
-        this.timeLabel.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
-        this.timeLabel.setPosition( new cc.Point( 70, 550 ) );
-        this.addChild( this.timeLabel );
-        this.timeLabel2 = cc.LabelTTF.create( this.time, 'Arial', 30 );
-        this.timeLabel2.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
-        this.timeLabel2.setPosition( new cc.Point( 140, 550 ) );
-        this.addChild( this.timeLabel2 );
+        //rank
+        this.rank = new rankStat( this.field );
+        this.addChild( this.rank );
+        this.rank.scheduleUpdate();
 
         //player
         this.player1 = new player( 'red' );
@@ -36,13 +31,28 @@ var GameLayer = cc.LayerColor.extend({
         this.player4 = new player( 'blue' );
         this.addChild( this.player4 );
         
+        //time
+        this.time = 6;
+        this.timeEvent = new time();
+        this.addChild( this.timeEvent );
+
         return true;
     }
-
+    ,BGM: function() {
+        if ( this.isMusicPlaying == true ) {
+            cc.AudioEngine.getInstance().stopMusic();
+            this.isMusicPlaying = false;
+        }
+        else  {
+            cc.AudioEngine.getInstance().playMusic( 'sounds/26.mp3', true );
+            this.isMusicPlaying = true;
+        }
+    }
     ,onKeyDown: function( e ) {
         if( e == 32 ) { this.playAgain(); }
         if( e == 13 ) { this.startGame(); }
-        if( this.isStop == true ) { return; }
+        if( e == 81 ) { this.BGM(); }
+        if( this.timeEvent.isTimeUp() ) { return; }
         switch( e ) {
         case 65:
             //left
@@ -89,45 +99,29 @@ var GameLayer = cc.LayerColor.extend({
         this.field.changeMap( this.player2.getX(), this.player2.getY(), this.player2.getColor() );
         this.field.changeMap( this.player3.getX(), this.player3.getY(), this.player3.getColor() );
         this.field.changeMap( this.player4.getX(), this.player4.getY(), this.player4.getColor() );
-        
-    }
-    ,timeUpdate: function() {
-        if( this.time >= 0 ){
-            this.time--;
-            if( this.time >= 0 ) { 
-                this.timeLabel2.setString( this.time );
-            }
-        }
-        if( this.time < 0 ) {
-            this.stopGame();
-            alert( "time's up ~" );
-            this.showRank();
-            alert( "=======================================\nPress spacebar to play again.\n=======================================" );
-        }
-        
+        if( this.timeEvent.isTimeUp() ) { this.stopGame(); }
     }
     ,stopGame: function() {
         this.player1.stop();
         this.player2.stop();
         this.player3.stop();
         this.player4.stop();
-        this.unschedule( this.timeUpdate );
-        this.isStop = true;
+        this.timeEvent.stop();
+        this.unscheduleUpdate();
     }
     ,startGame: function() {
-        if( this.time != 15 ) { return; }
-        this.isStop = false;
-        this.player1.schedule( this.player1.move, 0.4, Infinity, 0 );
-        this.player2.schedule( this.player2.move, 0.4, Infinity, 0 );
-        this.player3.schedule( this.player3.move, 0.4, Infinity, 0 );
-        this.player4.schedule( this.player4.move, 0.4, Infinity, 0 );
+        if( this.timeEvent.isTimeUp() ) { return; }
+        this.timeEvent.start();
+        this.player1.schedule( this.player1.move, 0.3, Infinity, 0 );
+        this.player2.schedule( this.player2.move, 0.3, Infinity, 0 );
+        this.player3.schedule( this.player3.move, 0.3, Infinity, 0 );
+        this.player4.schedule( this.player4.move, 0.3, Infinity, 0 );
         this.scheduleUpdate();
-        this.schedule( this.timeUpdate, 1, Infinity, 0 );
     }
     ,playAgain: function() {
         this.stopGame();
-        this.time = 15;
-        this.timeLabel2.setString( this.time );
+        this.timeEvent.setTime( this.time );
+        this.timeEvent.removeScreen();
         this.field.reset();
         this.player1.reset();
         this.player2.reset();
@@ -140,7 +134,7 @@ var GameLayer = cc.LayerColor.extend({
             temp += ( i+1 ) + '. ' + this.field.getRank()[ i ] + '\n';
         }
         temp += '========================\n' + this.field.getWinner() + '\n========================';
-        alert(temp);
+        //alert(temp);
     }
     
 });
@@ -153,4 +147,3 @@ var StartScene = cc.Scene.extend({
         this.addChild( layer );
     }
 });
-
