@@ -32,7 +32,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.player4 );
         
         //time
-        this.time = 6;
+        this.time = 15;
         this.timeEvent = new time();
         this.addChild( this.timeEvent );
 
@@ -54,38 +54,74 @@ var GameLayer = cc.LayerColor.extend({
         if( e == 81 ) { this.BGM(); }
         if( this.timeEvent.isTimeUp() ) { return; }
         switch( e ) {
-        case 65:
-            //left
-            this.player1.setDir( 3 );
-            break;
         case 87:
             //up
             this.player1.setDir( 1 );
-            break;
-        case 68:                                                   //w a s d
-            //right
-            this.player1.setDir( 4 );
             break;
         case 83:
             //down
             this.player1.setDir( 2 );
             break;
-
-        case 37:
+        case 65:
             //left
-            this.player2.setDir( 3 );
+            this.player1.setDir( 3 );
             break;
-        case 38:
+        case 68:                                                   //w a s d
+            //right
+            this.player1.setDir( 4 );
+            break;        
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        case 89:
             //up
             this.player2.setDir( 1 );
             break;
-        case 39:                                                   // arrow key
+        case 72:
+            //down
+            this.player2.setDir( 2 );
+            break;
+        case 71:
+            //left
+            this.player2.setDir( 3 );
+            break;
+        case 74:                                                   // y h g j
             //right
             this.player2.setDir( 4 );
             break;
+        
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        case 80:
+            //up
+            this.player3.setDir( 1 );
+            break;
+        case 59:
+            //down
+            this.player3.setDir( 2 );
+            break;
+        case 76:
+            //left
+            this.player3.setDir( 3 );
+            break;
+        case 222:                                                   // p ; l '
+            //right
+            this.player3.setDir( 4 );
+            break;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        case 37:
+            //left
+            this.player4.setDir( 3 );
+            break;
+        case 38:
+            //up
+            this.player4.setDir( 1 );
+            break;
+        case 39:                                                   // arrow key
+            //right
+            this.player4.setDir( 4 );
+            break;
         case 40:
             //down
-            this.player2.setDir( 2 );
+            this.player4.setDir( 2 );
             break;
         default:
             console.log(e);
@@ -112,10 +148,10 @@ var GameLayer = cc.LayerColor.extend({
     ,startGame: function() {
         if( this.timeEvent.isTimeUp() ) { return; }
         this.timeEvent.start();
-        this.player1.schedule( this.player1.move, 0.3, Infinity, 0 );
-        this.player2.schedule( this.player2.move, 0.3, Infinity, 0 );
-        this.player3.schedule( this.player3.move, 0.3, Infinity, 0 );
-        this.player4.schedule( this.player4.move, 0.3, Infinity, 0 );
+        this.player1.schedule( this.player1.move, 0.35, Infinity, 0 );
+        this.player2.schedule( this.player2.move, 0.35, Infinity, 0 );
+        this.player3.schedule( this.player3.move, 0.35, Infinity, 0 );
+        this.player4.schedule( this.player4.move, 0.35, Infinity, 0 );
         this.scheduleUpdate();
     }
     ,playAgain: function() {

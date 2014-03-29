@@ -5,7 +5,7 @@ var time = cc.Sprite.extend({
 		//this.init( 'images2/timeup.png' );
 		//this.setPosition( cc.p( 500,300 ) );
 		//time
-        this.time = 6;
+        this.time = 15;
         this.timeLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
         this.timeLabel.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
         this.timeLabel.setPosition( new cc.Point( 70, 550 ) );
@@ -38,7 +38,7 @@ var time = cc.Sprite.extend({
 		this.unschedule( this.run );
 	}
 	,start: function() {
-		this.time = 6;
+		this.time = 15;
 		this.schedule( this.run, 1, Infinity, 0 );
 	}
 	,run: function() {

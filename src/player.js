@@ -40,6 +40,7 @@ var player = cc.Sprite.extend({
 		this.pos = this.getPosition();
 
 		this.createAnimation();
+		this.runAction( this.movingAction );
 
 	}
 	,createAnimation: function() {
@@ -58,13 +59,15 @@ var player = cc.Sprite.extend({
 				this.animationBack.addSpriteFrameWithFile( 'images2/player/' + name + '/' + i + '.png' );
 			}
 		}
-		this.animationFront.setDelayPerUnit( 0.2 );
-		this.animationBack.setDelayPerUnit( 0.2 );
+		this.animationFront.setDelayPerUnit( 0.125 );
+		this.animationBack.setDelayPerUnit( 0.125 );
 		this.movingAction = cc.Animate.create( this.animationFront );
 
 	}
+	,move2: function() {
+
+	}
 	,move: function() {
-		this.runAction( this.movingAction );
 		switch( this.dir ) {
 			case 1:
 				if( this.x > 0 ) {
