@@ -1,4 +1,4 @@
-var field = cc.Node.extend({
+var Field = cc.Node.extend({
 	ctor: function() {
 		this._super();
 		this.WIDTH = 100;
@@ -21,7 +21,7 @@ var field = cc.Node.extend({
         }
         for( var i = 0; i < 8; i++ ) {
         	for( var j = 0; j < 8; j++ ){
-        		this.boxArray[ i ][ j ] = new box(); 
+        		this.boxArray[ i ][ j ] = new Box(); 
         	}
         }
 

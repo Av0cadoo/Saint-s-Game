@@ -12,28 +12,28 @@ var GameLayer = cc.LayerColor.extend({
         this.isReset = true;
 
         //field
-        this.field = new field();
+        this.field = new Field();
         this.addChild( this.field );
 
         //rank
-        this.rank = new rankStat( this.field );
+        this.rank = new RankStat( this.field );
         this.addChild( this.rank );
         this.rank.scheduleUpdate();
 
         //player
-        this.player1 = new player( 'red' );
+        this.player1 = new Player( 'red' );
         this.addChild( this.player1 );
 
         //player2
-        this.player2 = new player( 'orange' );
+        this.player2 = new Player( 'orange' );
         this.addChild( this.player2 );
 
         //player3
-        this.player3 = new player( 'green' );
+        this.player3 = new Player( 'green' );
         this.addChild( this.player3 );
 
         //player4
-        this.player4 = new player( 'blue' );
+        this.player4 = new Player( 'blue' );
         this.addChild( this.player4 );
         
         //time

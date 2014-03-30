@@ -34,6 +34,8 @@ var Time = cc.Sprite.extend({
 		this.timeLabel2.setString( this.time );
 	}
 	,stop: function() {
+		this.timeLabel2.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
+		this.timeLabel2.setFontSize( 30 );
 		this.unschedule( this.run );
 	}
 	,start: function() {

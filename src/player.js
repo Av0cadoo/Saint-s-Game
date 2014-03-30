@@ -1,4 +1,4 @@
-var player = cc.Sprite.extend({
+var Player = cc.Sprite.extend({
 	ctor: function( color ) {
 		this._super();
 		this.setAnchorPoint( cc.p( 0, 0 ) );

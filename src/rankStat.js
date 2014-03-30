@@ -1,4 +1,4 @@
-var rankStat = cc.Sprite.extend({
+var RankStat = cc.Sprite.extend({
 	ctor: function( field ) {
 		this._super();
 		this.init( 'images2/player/pro-pic.png' );

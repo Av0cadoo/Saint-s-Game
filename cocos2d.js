@@ -13,12 +13,12 @@
         //SingleEngineFile:'',
         appFiles:[
             'src/GameLayer.js'     //add your own files in order here
-            ,'src/box.js'
-            ,'src/field.js'
-            ,'src/player.js'
-            ,'src/time.js'
+            ,'src/Box.js'
+            ,'src/Field.js'
+            ,'src/Player.js'
+            ,'src/Time.js'
             ,'src/resource.js'
-            ,'src/rankStat.js'
+            ,'src/RankStat.js'
         ]
     };
 
