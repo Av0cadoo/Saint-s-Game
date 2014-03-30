@@ -1,11 +1,11 @@
-var time = cc.Sprite.extend({
+var Time = cc.Sprite.extend({
 	ctor: function() {
 		this._super();
 		this.init();
 		//this.init( 'images2/timeup.png' );
 		//this.setPosition( cc.p( 500,300 ) );
 		//time
-        this.time = 15;
+        this.time = Time.set.time;
         this.timeLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
         this.timeLabel.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
         this.timeLabel.setPosition( new cc.Point( 70, 550 ) );
@@ -17,13 +17,12 @@ var time = cc.Sprite.extend({
 
         //screen
         this.timeupScreen = new cc.Sprite;
-		this.timeupScreen.init( 'images2/timeup.png' );
+		this.timeupScreen.init( 'images2/timeup3.png' );
 		this.timeupScreen.setPosition( new cc.p( 500, 300 ) );
-
 		
 	}
 	,isTimeUp: function() {
-		if( this.time == 0 ) {
+		if( this.time == -1 ) {
 			return true;
 		}
 		else {
@@ -38,13 +37,13 @@ var time = cc.Sprite.extend({
 		this.unschedule( this.run );
 	}
 	,start: function() {
-		this.time = 15;
+		this.time = Time.set.time;
 		this.schedule( this.run, 1, Infinity, 0 );
 	}
 	,run: function() {
-		if( this.time <= 6 && this.time >= 1 ) {
-			cc.AudioEngine.getInstance().playEffect( 'sounds/time1.mp3' );
-			if( this.time % 2 == 0 ) {
+		if( this.time <= 3 && this.time >= 1 ) {
+			cc.AudioEngine.getInstance().playEffect( 'sounds/time2.mp3' );
+			if( this.time % 2 != 0 ) {
 				this.timeLabel2.setFontFillColor( new cc.Color4B( 255, 0, 0, 0 ) );
 				this.timeLabel2.setFontSize( 40 );
 			}
@@ -57,8 +56,8 @@ var time = cc.Sprite.extend({
             this.timeLabel2.setString( this.time );
             this.time--;
         }
-        if( this.time == 0 ) {
-        	this.timeLabel2.setString( this.time );
+        if( this.time < 0 ) {
+        	this.timeLabel2.setString( this.time + 1 );
         	this.timeLabel2.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
 			this.timeLabel2.setFontSize( 30 );
 			this.timeup();
@@ -71,4 +70,8 @@ var time = cc.Sprite.extend({
 	,removeScreen: function() {
 		this.removeChild( this.timeupScreen );
 	}
-})
+});
+
+Time.set = {
+    time: 5
+};

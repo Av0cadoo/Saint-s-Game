@@ -6,42 +6,39 @@ var player = cc.Sprite.extend({
 		//this.setPosition( cc.p( 250, 40 ) ); //leftdown
 		//this.setPosition( cc.p( 950, 565 ) ); //rightup
 		//this.setPosition( cc.p( 950, 40 ) );//rightdown
-		
+		this.dir;
+		this.color = color;
+		this.pos = this.getPosition();
+		this.createAnimation();
+
 		if( color == 'red' ) {
 			this.init( 'images2/player/poring/1.png' );
 			this.setPosition( cc.p( 250, 565 ) );
 			this.x = 0;
-			this.dir = 4;
+			this.setDir( 4 );
 			this.y = 0;
+		}
+		else if( color == 'orange' ) {
+			this.init( 'images2/player/drop/1.png' );
+			this.setPosition( cc.p( 950, 565 ) );
+			this.x = 0;
+			this.setDir( 2 );
+			this.y = 7;
 		}
 		else if( color == 'green' ) {
 			this.init( 'images2/player/poporing/1.png' );
 			this.setPosition( cc.p( 250, 40 ) );
 			this.x = 7;
-			this.dir = 1;
+			this.setDir( 1 );
 			this.y = 0;
 		}
 		else if( color == 'blue' ) {
 			this.init( 'images2/player/marin/1.png' );
 			this.setPosition( cc.p( 950, 40 ) );
 			this.x = 7;
-			this.dir = 3;
+			this.setDir( 3 );
 			this.y = 7;
 		}
-		else if( color == 'orange' ) {
-			this.init( 'images2/player/drop/1.png' );
-			this.setPosition( cc.p( 950, 565 ) );
-			this.x = 0;
-			this.dir = 2;
-			this.y = 7;
-		}
-		
-		this.color = color;
-		this.pos = this.getPosition();
-
-		this.createAnimation();
-		this.runAction( this.movingAction );
-
 	}
 	,createAnimation: function() {
 		this.animationFront = new cc.Animation.create();
@@ -61,13 +58,11 @@ var player = cc.Sprite.extend({
 		}
 		this.animationFront.setDelayPerUnit( 0.125 );
 		this.animationBack.setDelayPerUnit( 0.125 );
-		this.movingAction = cc.Animate.create( this.animationFront );
-
-	}
-	,move2: function() {
+		this.movingAction = cc.Animate.create( this.animationFront ); 
 
 	}
 	,move: function() {
+		this.runAction( this.movingAction );
 		switch( this.dir ) {
 			case 1:
 				if( this.x > 0 ) {

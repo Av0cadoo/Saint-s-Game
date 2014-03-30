@@ -4,7 +4,12 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
         this.setKeyboardEnabled( true );
         this.isMusicPlaying = true;
-        cc.AudioEngine.getInstance().playMusic( 'sounds/26.mp3', true );
+        this.bgm = new cc.SimpleAudioEngine();
+        this.bgm.init();
+        this.bgm.playMusic( 'sounds/18.mp3', true );
+        this.bgm.setMusicVolume( 0.7 );
+        this.isGameStop = true;
+        this.isReset = true;
 
         //field
         this.field = new field();
@@ -32,19 +37,19 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.player4 );
         
         //time
-        this.time = 15;
-        this.timeEvent = new time();
+        this.timeEvent = new Time();
+        this.time = Time.set.time;
         this.addChild( this.timeEvent );
 
         return true;
     }
     ,BGM: function() {
         if ( this.isMusicPlaying == true ) {
-            cc.AudioEngine.getInstance().stopMusic();
+            this.bgm.stopMusic();
             this.isMusicPlaying = false;
         }
         else  {
-            cc.AudioEngine.getInstance().playMusic( 'sounds/26.mp3', true );
+            this.bgm.playMusic( 'sounds/18.mp3', true );
             this.isMusicPlaying = true;
         }
     }
@@ -52,7 +57,7 @@ var GameLayer = cc.LayerColor.extend({
         if( e == 32 ) { this.playAgain(); }
         if( e == 13 ) { this.startGame(); }
         if( e == 81 ) { this.BGM(); }
-        if( this.timeEvent.isTimeUp() ) { return; }
+        if( this.isGameStop ) { return; }
         switch( e ) {
         case 87:
             //up
@@ -71,41 +76,41 @@ var GameLayer = cc.LayerColor.extend({
             this.player1.setDir( 4 );
             break;        
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-        case 89:
+        case 80:
             //up
             this.player2.setDir( 1 );
             break;
-        case 72:
+        case 59:
             //down
             this.player2.setDir( 2 );
             break;
-        case 71:
+        case 76:
             //left
             this.player2.setDir( 3 );
             break;
-        case 74:                                                   // y h g j
+        case 222:                                                   // p ; l '
             //right
             this.player2.setDir( 4 );
             break;
-        
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-        case 80:
+        case 89:
             //up
             this.player3.setDir( 1 );
             break;
-        case 59:
+        case 72:
             //down
             this.player3.setDir( 2 );
             break;
-        case 76:
+        case 71:
             //left
             this.player3.setDir( 3 );
             break;
-        case 222:                                                   // p ; l '
+        case 74:                                                   // y h g j
             //right
             this.player3.setDir( 4 );
             break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         case 37:
             //left
@@ -138,6 +143,7 @@ var GameLayer = cc.LayerColor.extend({
         if( this.timeEvent.isTimeUp() ) { this.stopGame(); }
     }
     ,stopGame: function() {
+        this.isGameStop = true;
         this.player1.stop();
         this.player2.stop();
         this.player3.stop();
@@ -146,15 +152,18 @@ var GameLayer = cc.LayerColor.extend({
         this.unscheduleUpdate();
     }
     ,startGame: function() {
-        if( this.timeEvent.isTimeUp() ) { return; }
+        if( !this.isGameStop || !this.isReset ) { return; }
+        this.isReset = false;
+        this.isGameStop = false;
         this.timeEvent.start();
-        this.player1.schedule( this.player1.move, 0.35, Infinity, 0 );
-        this.player2.schedule( this.player2.move, 0.35, Infinity, 0 );
-        this.player3.schedule( this.player3.move, 0.35, Infinity, 0 );
-        this.player4.schedule( this.player4.move, 0.35, Infinity, 0 );
+        this.player1.schedule( this.player1.move, 0.3, Infinity, 0 );
+        this.player2.schedule( this.player2.move, 0.3, Infinity, 0 );
+        this.player3.schedule( this.player3.move, 0.3, Infinity, 0 );
+        this.player4.schedule( this.player4.move, 0.3, Infinity, 0 );
         this.scheduleUpdate();
     }
     ,playAgain: function() {
+        this.isReset = true;
         this.stopGame();
         this.timeEvent.setTime( this.time );
         this.timeEvent.removeScreen();
