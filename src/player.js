@@ -79,7 +79,6 @@ var Player = cc.Sprite.extend({
 				}
 				break;
 			case 3:
-				
 				if( this.y > 0 ) {
 					this.setPosition( new cc.Point( this.pos.x - 100, this.pos.y ));
 					cc.AudioEngine.getInstance().playEffect( 'sounds/poring.mp3' );

@@ -75,5 +75,5 @@ var Time = cc.Sprite.extend({
 });
 
 Time.set = {
-    time: 5
+    time: 15
 };
