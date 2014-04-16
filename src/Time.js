@@ -2,8 +2,7 @@ var Time = cc.Sprite.extend({
 	ctor: function() {
 		this._super();
 		this.init();
-		//this.init( 'images2/timeup.png' );
-		//this.setPosition( cc.p( 500,300 ) );
+
 		//time
         this.time = Time.set.time;
         this.timeLabel = cc.LabelTTF.create( 'TIME :', 'Arial', 30 );
@@ -75,5 +74,5 @@ var Time = cc.Sprite.extend({
 });
 
 Time.set = {
-    time: 15
+    time: 60
 };

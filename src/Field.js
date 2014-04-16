@@ -176,6 +176,4 @@ var Field = cc.Node.extend({
 		return string;
 	}
 
-
-
 })

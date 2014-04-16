@@ -19,6 +19,7 @@
             ,'src/Time.js'
             ,'src/resource.js'
             ,'src/RankStat.js'
+            ,'src/Power.js'
         ]
     };
 

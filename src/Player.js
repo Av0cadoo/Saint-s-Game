@@ -1,3 +1,4 @@
+var moveSpeed = 0.3;
 var Player = cc.Sprite.extend({
 	ctor: function( color ) {
 		this._super();
@@ -10,7 +11,6 @@ var Player = cc.Sprite.extend({
 		this.color = color;
 		this.pos = this.getPosition();
 		this.createAnimation();
-
 		if( color == 'red' ) {
 			this.init( 'images2/player/poring/1.png' );
 			this.setPosition( cc.p( 250, 565 ) );
@@ -40,6 +40,11 @@ var Player = cc.Sprite.extend({
 			this.y = 7;
 		}
 	}
+
+	,start: function() {
+		this.schedule( this.move, moveSpeed, Infinity, 0 );
+	}
+
 	,createAnimation: function() {
 		this.animationFront = new cc.Animation.create();
 		this.animationBack = new cc.Animation.create();
@@ -61,6 +66,7 @@ var Player = cc.Sprite.extend({
 		this.movingAction = cc.Animate.create( this.animationFront ); 
 
 	}
+
 	,move: function() {
 		this.runAction( this.movingAction );
 		switch( this.dir ) {
@@ -110,9 +116,11 @@ var Player = cc.Sprite.extend({
 			this.setFlippedX( true );
 		}
 	}
+
 	,stop: function() {
 		this.unschedule( this.move );
 	}
+
 	,reset: function() {
 		if( this.color == 'red' ) {
 			this.setPosition( cc.p( 250, 565 ) );
@@ -139,13 +147,51 @@ var Player = cc.Sprite.extend({
 			this.y = 7;
 		}
 	}
+
 	,getX: function() {
 		return this.x;
 	}
+
 	,getY: function() {
 		return this.y;
 	}
+
 	,getColor: function() {
 		return this.color;
 	}
+
+	,setPower: function( type, field ) {
+		if( type == 0 ) {
+			if( this.x > 0 ) field.changeMap( this.x - 1, this.y, this.color );
+			if( this.y > 0 ) field.changeMap( this.x, this.y - 1, this.color );
+			if( this.y < 7 ) field.changeMap( this.x, this.y + 1, this.color );
+			if( this.x < 7 ) field.changeMap( this.x + 1 , this.y, this.color );
+			if( this.x > 0 && this.y > 0 ) field.changeMap( this.x - 1, this.y - 1, this.color );
+			if( this.x > 0 && this.y < 7 ) field.changeMap( this.x - 1, this.y + 1, this.color );
+			if( this.x < 7 && this.y > 0 ) field.changeMap( this.x + 1, this.y - 1, this.color );
+			if( this.x < 7 && this.y < 7 ) field.changeMap( this.x + 1, this.y + 1, this.color );
+		}
+		else if( type == 1 ) {
+			if( this.x > 0 ) field.changeMap( this.x - 1, this.y, '#' );
+			if( this.y > 0 ) field.changeMap( this.x, this.y - 1, '#' );
+			if( this.y < 7 ) field.changeMap( this.x, this.y + 1, '#' );
+			if( this.x < 7 ) field.changeMap( this.x + 1 , this.y, '#' );
+			if( this.x > 0 && this.y > 0 ) field.changeMap( this.x - 1, this.y - 1, '#' );
+			if( this.x > 0 && this.y < 7 ) field.changeMap( this.x - 1, this.y + 1, '#' );
+			if( this.x < 7 && this.y > 0 ) field.changeMap( this.x + 1, this.y - 1, '#' );
+			if( this.x < 7 && this.y < 7 ) field.changeMap( this.x + 1, this.y + 1, '#' );
+		}
+		else if( type == 2 ) {
+			
+		}
+		else if( type == 3 ) {
+
+		}
+		else if( type == 4 ) {
+
+		}
+
+	}
+
+
 })
