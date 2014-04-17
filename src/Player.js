@@ -1,4 +1,5 @@
 var moveSpeed = 0.3;
+var speedUpTime = 2;
 var Player = cc.Sprite.extend({
 	ctor: function( color ) {
 		this._super();
@@ -100,6 +101,7 @@ var Player = cc.Sprite.extend({
 				break;
 		}
 	}
+
 	,setDir: function( dir ) {
 		this.dir = dir;
 		if( this.dir == 1 ) {
@@ -182,7 +184,9 @@ var Player = cc.Sprite.extend({
 			if( this.x < 7 && this.y < 7 ) field.changeMap( this.x + 1, this.y + 1, '#' );
 		}
 		else if( type == 2 ) {
-			
+			this.stop();
+			this.schedule( this.move, moveSpeed - 0.1, Infinity, 0 );
+			this.schedule( this.speedUp, 1, 3, 0 );
 		}
 		else if( type == 3 ) {
 
@@ -191,6 +195,16 @@ var Player = cc.Sprite.extend({
 
 		}
 
+	}
+
+	,speedUp: function() {
+		speedUpTime--;
+		if( speedUpTime == 0 ) {
+			this.stop();
+			this.start();
+			speedUpTime = 2;
+		}
+		
 	}
 
 

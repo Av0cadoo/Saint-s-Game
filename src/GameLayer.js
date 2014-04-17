@@ -47,6 +47,7 @@ var GameLayer = cc.LayerColor.extend({
 
         return true;
     }
+
     ,BGM: function() {
         if ( this.isMusicPlaying == true ) {
             this.bgm.stopMusic();
@@ -57,6 +58,7 @@ var GameLayer = cc.LayerColor.extend({
             this.isMusicPlaying = true;
         }
     }
+
     ,onKeyDown: function( e ) {
         if( e == 32 ) { this.playAgain(); }
         if( e == 13 ) { this.startGame(); }
@@ -162,6 +164,7 @@ var GameLayer = cc.LayerColor.extend({
         this.timeEvent.stop();
         this.unscheduleUpdate();
     }
+
     ,startGame: function() {
         if( !this.isGameStop || !this.isReset ) { return; }
         this.isReset = false;
@@ -174,6 +177,7 @@ var GameLayer = cc.LayerColor.extend({
         this.power.start();
         this.scheduleUpdate();
     }
+
     ,playAgain: function() {
         this.isReset = true;
         this.stopGame();
@@ -200,6 +204,7 @@ var GameLayer = cc.LayerColor.extend({
             this.player4.setPower( data[1], this.field );
         }
     }
+    
     ,showRank: function() {
         var temp = '======= RANK =======\n';
         for( var i = 0; i < 4; i++ ){

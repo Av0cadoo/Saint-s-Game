@@ -30,7 +30,7 @@ var Power = cc.Sprite.extend({
 	,randomP: function() {
 		this.x = Math.floor( ( Math.random() * 8 ) );
 		this.y = Math.floor(  ( Math.random() * 8 ) );
-		this.type = Math.floor( ( Math.random() * 2 ) );
+		this.type = Math.floor( ( Math.random() * 3 ) );
 		this.updatePosition();
 	
 	}
@@ -53,7 +53,7 @@ var Power = cc.Sprite.extend({
 	}
 
 	,stop: function() {
-		this.hide;
+		this.hide();
 		this.unschedule( this.roll );
 	}
 
