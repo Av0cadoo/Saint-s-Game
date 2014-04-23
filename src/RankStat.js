@@ -25,6 +25,8 @@ var RankStat = cc.Sprite.extend({
         this.blueScoreLabel.setPosition( new cc.Point( 120, 29 ) );
 		this.addChild( this.blueScoreLabel );
 
+		this.schedule(this.update, 0.2, Infinity, 0); 
+
 	}
 	,update: function() {
 		this.redScoreLabel.setString( this.field.getRedScore() );

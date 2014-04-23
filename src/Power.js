@@ -1,7 +1,7 @@
 var Power = cc.Sprite.extend({
 	ctor: function() {
 		this._super();
-		this.initWithFile( 'images2/power.png', cc.rect( 33, 0, 32, 32 ) );
+		this.initWithFile( 'images2/power/power.png', cc.rect( 260, 0, 40, 40 ) );
 		this.type;
 		this.x;
 		this.y;
@@ -28,26 +28,31 @@ var Power = cc.Sprite.extend({
 	}
 
 	,randomP: function() {
-		this.x = Math.floor( ( Math.random() * 8 ) );
-		this.y = Math.floor(  ( Math.random() * 8 ) );
-		this.type = Math.floor( ( Math.random() * 3 ) );
+		this.x = this.rand( 0, 7 );
+		this.y = this.rand( 0, 7 );
+		this.type = this.rand( 0, 4 );
 		this.updatePosition();
 	
 	}
 
 	,hide: function() {
-		this.setTextureRect( cc.rect( 33, 0, 32, 32 ) );
+		this.setTextureRect( cc.rect( 260, 0, 40, 40 ) );
 		this.x = -1;
 		this.y = -1;
 	}
 
 	,updatePosition: function() {
-		this.setTextureRect( cc.rect( 0, 0, 32, 32 ) );
+		if( this.type == 0 ) this.setTextureRect( cc.rect( 0, 0, 40, 40 ) );
+		if( this.type == 1 ) this.setTextureRect( cc.rect( 40, 0, 40, 40 ) );
+		if( this.type == 2 ) this.setTextureRect( cc.rect( 80, 0, 40, 40 ) );
+		if( this.type == 3 ) this.setTextureRect( cc.rect( 120, 0, 40, 40 ) );
+		if( this.type == 4 ) this.setTextureRect( cc.rect( 160, 0, 40, 40 ) );
+
 		this.setPosition( new cc.p( 250 + ( this.y * 100 ), 565 - ( this.x * 75 ) ) );
 	}
 
 	,roll: function() {
-		if ( Math.floor( ( Math.random() * 2 ) ) == 1 ) {
+		if ( this.rand( 1, 2 ) == 1 ) {
 			this.randomP();
 		}
 	}
@@ -58,7 +63,11 @@ var Power = cc.Sprite.extend({
 	}
 
 	,start: function() {
-		this.schedule( this.roll, 4, Infinity, 0.5 );
+		this.schedule( this.roll, 3, Infinity, 1 );
+	}
+
+	,rand: function( lo, hi ) {
+		return parseInt( ( Math.random() * ( hi - lo + 1 ) ) + lo, 10 );
 	}
 
 })

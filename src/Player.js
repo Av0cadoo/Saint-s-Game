@@ -1,5 +1,5 @@
 var moveSpeed = 0.3;
-var speedUpTime = 2;
+var speedBonusTime = 2;
 var Player = cc.Sprite.extend({
 	ctor: function( color ) {
 		this._super();
@@ -11,7 +11,7 @@ var Player = cc.Sprite.extend({
 		this.dir;
 		this.color = color;
 		this.pos = this.getPosition();
-		this.createAnimation();
+		//this.createAnimation();
 		if( color == 'red' ) {
 			this.init( 'images2/player/poring/1.png' );
 			this.setPosition( cc.p( 250, 565 ) );
@@ -69,7 +69,7 @@ var Player = cc.Sprite.extend({
 	}
 
 	,move: function() {
-		this.runAction( this.movingAction );
+		//this.runAction( this.movingAction );
 		switch( this.dir ) {
 			case 1:
 				if( this.x > 0 ) {
@@ -105,10 +105,10 @@ var Player = cc.Sprite.extend({
 	,setDir: function( dir ) {
 		this.dir = dir;
 		if( this.dir == 1 ) {
-			this.movingAction = cc.Animate.create( this.animationBack );
+			//this.movingAction = cc.Animate.create( this.animationBack );
 		}
 		else if( this.dir == 2 ) {
-			this.movingAction = cc.Animate.create( this.animationFront );
+			//this.movingAction = cc.Animate.create( this.animationFront );
 		}
 
 		if( this.dir == 3 ) {
@@ -121,6 +121,7 @@ var Player = cc.Sprite.extend({
 
 	,stop: function() {
 		this.unschedule( this.move );
+		this.unschedule( this.CountTime );
 	}
 
 	,reset: function() {
@@ -186,26 +187,31 @@ var Player = cc.Sprite.extend({
 		else if( type == 2 ) {
 			this.stop();
 			this.schedule( this.move, moveSpeed - 0.1, Infinity, 0 );
-			this.schedule( this.speedUp, 1, 3, 0 );
+			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
 		}
 		else if( type == 3 ) {
-
+			this.stop();
+			this.schedule( this.move, moveSpeed + 0.1, Infinity, 0 );
+			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
 		}
 		else if( type == 4 ) {
-
+			this.stop();
+			this.schedule( this.move, Infinity, Infinity, 0 );
+			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
 		}
 
 	}
 
-	,speedUp: function() {
-		speedUpTime--;
-		if( speedUpTime == 0 ) {
+	,CountTime: function() {
+		speedBonusTime--;
+		if( speedBonusTime == 0 ) {
 			this.stop();
 			this.start();
-			speedUpTime = 2;
+			speedBonusTime = 2;
 		}
 		
 	}
+
 
 
 })

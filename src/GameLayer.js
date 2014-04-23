@@ -18,7 +18,6 @@ var GameLayer = cc.LayerColor.extend({
         //rank
         this.rank = new RankStat( this.field );
         this.addChild( this.rank );
-        this.rank.scheduleUpdate();
 
         //player
         this.player1 = new Player( 'red' );
@@ -37,8 +36,10 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.player4 );
 
         //power
-        this.power = new Power();
-        this.addChild( this.power );
+        this.power1 = new Power();
+        this.addChild( this.power1 );
+        this.power2 = new Power();
+        this.addChild( this.power2 );
 
         //time
         this.timeEvent = new Time();
@@ -148,7 +149,11 @@ var GameLayer = cc.LayerColor.extend({
         this.field.changeMap( this.player3.getX(), this.player3.getY(), this.player3.getColor() );
         this.field.changeMap( this.player4.getX(), this.player4.getY(), this.player4.getColor() );
         if( this.timeEvent.isTimeUp() ) { this.stopGame(); }
-        var powerUp = this.power.update( this.player1, this.player2, this.player3, this.player4 );
+        var powerUp = this.power1.update( this.player1, this.player2, this.player3, this.player4 );
+        if( powerUp !== -1 ) {
+            this.runPower( powerUp );
+        }
+        powerUp = this.power2.update( this.player1, this.player2, this.player3, this.player4 );
         if( powerUp !== -1 ) {
             this.runPower( powerUp );
         }
@@ -160,7 +165,8 @@ var GameLayer = cc.LayerColor.extend({
         this.player2.stop();
         this.player3.stop();
         this.player4.stop();
-        this.power.stop();
+        this.power1.stop();
+        this.power2.stop();
         this.timeEvent.stop();
         this.unscheduleUpdate();
     }
@@ -174,7 +180,8 @@ var GameLayer = cc.LayerColor.extend({
         this.player2.start();
         this.player3.start();
         this.player4.start();
-        this.power.start();
+        this.power1.start();
+        this.power2.start();
         this.scheduleUpdate();
     }
 
