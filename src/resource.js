@@ -70,7 +70,7 @@ var g_resources = [
     ,{ src: 'images2/player/marin/16.png' }
     ,{ src: 'images2/player/marin/17.png' }
     ,{ src: 'images2/timeup3.png' }
-    ,{ src: 'images2/power.png' }
+    ,{ src: 'images2/power/power.png' }
 
     //plist
 

@@ -1,5 +1,5 @@
 var moveSpeed = 0.3;
-var speedBonusTime = 2;
+var speedBonusTime = 3;
 var Player = cc.Sprite.extend({
 	ctor: function( color ) {
 		this._super();
@@ -104,13 +104,6 @@ var Player = cc.Sprite.extend({
 
 	,setDir: function( dir ) {
 		this.dir = dir;
-		if( this.dir == 1 ) {
-			//this.movingAction = cc.Animate.create( this.animationBack );
-		}
-		else if( this.dir == 2 ) {
-			//this.movingAction = cc.Animate.create( this.animationFront );
-		}
-
 		if( this.dir == 3 ) {
 			this.setFlippedX( false );
 		}
@@ -161,6 +154,13 @@ var Player = cc.Sprite.extend({
 
 	,getColor: function() {
 		return this.color;
+	}	
+
+	,getColor4B: function() {
+		if( this.color == 'red' ) return Player.COLOR.RED;
+		if( this.color == 'orange' ) return Player.COLOR.ORANGE;
+		if( this.color == 'green' ) return Player.COLOR.GREEN;
+		if( this.color == 'blue' ) return Player.COLOR.BLUE;
 	}
 
 	,setPower: function( type, field ) {
@@ -186,17 +186,16 @@ var Player = cc.Sprite.extend({
 		}
 		else if( type == 2 ) {
 			this.stop();
-			this.schedule( this.move, moveSpeed - 0.1, Infinity, 0 );
+			this.schedule( this.move, moveSpeed - 0.15, Infinity, 0 );
 			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
 		}
 		else if( type == 3 ) {
 			this.stop();
-			this.schedule( this.move, moveSpeed + 0.1, Infinity, 0 );
+			this.schedule( this.move, moveSpeed + 0.15, Infinity, 0 );
 			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
 		}
 		else if( type == 4 ) {
 			this.stop();
-			this.schedule( this.move, Infinity, Infinity, 0 );
 			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
 		}
 
@@ -207,11 +206,19 @@ var Player = cc.Sprite.extend({
 		if( speedBonusTime == 0 ) {
 			this.stop();
 			this.start();
-			speedBonusTime = 2;
+			speedBonusTime = 3;
 		}
 		
 	}
 
 
 
-})
+});
+
+Player.COLOR = {
+    RED: new cc.Color4B( 232, 91, 85, 0 ),
+    ORANGE: new cc.Color4B( 255, 187, 102, 0 ),
+    GREEN: new cc.Color4B( 114, 232, 122, 0 ),
+    BLUE: new cc.Color4B( 85, 201, 244, 0 )
+
+};

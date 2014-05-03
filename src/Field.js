@@ -137,25 +137,58 @@ var Field = cc.Node.extend({
 
 		for ( var i = 0; i < 4; i++ ) {
 			if( scoreArray[ i ] == redScore ){
-			 rank[i] = 'Red : ' + scoreArray[i];
+			 rank[i] = [ 'red', scoreArray[ i ] ];
 			 redScore = -1;
 			}
-			else if( scoreArray[ i ] == greenScore ) { 
-				rank[i] = 'Green : ' + scoreArray[i];
-				greenScore = -1;
-			} 
 			else if( scoreArray[ i ] == orangeScore ) {
-				rank[i] = 'ORANGE : ' + scoreArray[i]; 
+				rank[i] = [ 'orange', scoreArray[ i ] ]; 
 				orangeScore = -1;
 			}
+			else if( scoreArray[ i ] == greenScore ) { 
+				rank[i] = [ 'green', scoreArray[ i ] ];
+				greenScore = -1;
+			} 
 			else if( scoreArray[ i ] == blueScore ) {
-				rank[i] = 'Blue : ' + scoreArray[i]; 
+				rank[i] = [ 'blue', scoreArray[ i ] ]; 
 				blueScore = -1;
 			}
 		}
 		return rank;
-	}
-	,getWinner: function() {
+	},
+
+	getRedRank: function() {
+		var rank = this.getRank();
+		for( var i = 0; i < 4; i++ ) {
+			if( rank[ i ][ 0 ] == 'red' ) return i + 1; 
+		}
+		return 1;
+	},
+
+	getOrangeRank: function() {
+		var rank = this.getRank();
+		for( var i = 0; i < rank.length; i++ ) {
+			if( rank[ i ][ 0 ] == 'orange' ) return i + 1;  
+		}
+		return 2;
+	},
+
+	getGreenRank: function() {
+		var rank = this.getRank();
+		for( var i = 0; i < rank.length; i++ ) {
+			if( rank[ i ][ 0 ] == 'green' ) return i + 1;  
+		}
+		return 3;
+	},
+
+	getBlueRank: function() {
+		var rank = this.getRank();
+		for( var i = 0; i < rank.length; i++ ) {
+			if( rank[ i ][ 0 ] == 'blue' ) return i + 1;  
+		}
+		return 4;
+	},
+
+	getWinner: function() {
 		var winner = [];
 		var string = '';
 		var redScore = this.getRedScore();
@@ -163,7 +196,7 @@ var Field = cc.Node.extend({
 		var orangeScore = this.getOrangeScore();
 		var blueScore =  this.getBlueScore();
 		var scoreArray = [ redScore, greenScore, orangeScore, blueScore ];
-		scoreArray.sort( function( a,b ){ return b-a } );
+		scoreArray.sort( function( a,b ){ return b - a } );
 
 		winner = this.getName( scoreArray[ 0 ] );
 		string = winner[ 0 ];
