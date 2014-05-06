@@ -16,11 +16,10 @@ var RankStat = cc.Sprite.extend({
 		this.orange.start( this.field.getOrangeRank() );
 		this.green.start( this.field.getGreenRank() );
 		this.blue.start( this.field.getBlueRank() );
-		this.schedule(this.update, 0.2, Infinity, 0); 
+		this.schedule( this.update, 0.15, Infinity, 0 );
+	},
 
-	}
-
-	,update: function() {
+	update: function() {
 		this.red.setRank( this.field.getRedRank() );
 		this.orange.setRank( this.field.getOrangeRank() );
 		this.green.setRank( this.field.getGreenRank() );

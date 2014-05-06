@@ -19,34 +19,34 @@ var Time = cc.Sprite.extend({
 		this.timeupScreen.init( 'images2/timeup3.png' );
 		this.timeupScreen.setPosition( new cc.p( 500, 300 ) );
 		
-	}
+	},
 
-	,isTimeUp: function() {
+	isTimeUp: function() {
 		if( this.time == -1 ) {
 			return true;
 		}
 		else {
 			return false;
 		}
-	}
+	},
 
-	,setTime: function( time ) {
+	setTime: function( time ) {
 		this.time = time;
 		this.timeLabel2.setString( this.time );
-	}
+	},
 
-	,stop: function() {
+	stop: function() {
 		this.timeLabel2.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
 		this.timeLabel2.setFontSize( 30 );
 		this.unschedule( this.run );
-	}
+	},
 
-	,start: function() {
+	start: function() {
 		this.time = Time.set.time;
 		this.schedule( this.run, 1, Infinity, 0 );
-	}
+	},
 
-	,run: function() {
+	run: function() {
 		if( this.time <= 3 && this.time >= 1 ) {
 			cc.AudioEngine.getInstance().playEffect( 'sounds/time2.mp3' );
 			if( this.time % 2 != 0 ) {
@@ -69,13 +69,13 @@ var Time = cc.Sprite.extend({
 			this.timeup();
             this.stop();
         }
-	}
+	},
 
-	,timeup: function() {
+	timeup: function() {
 		this.addChild( this.timeupScreen );
-	}
+	},
 	
-	,removeScreen: function() {
+	removeScreen: function() {
 		this.removeChild( this.timeupScreen );
 	}
 });

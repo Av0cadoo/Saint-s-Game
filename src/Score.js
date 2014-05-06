@@ -11,7 +11,6 @@ var Score = cc.Sprite.extend({
 	},
 
 	setRank: function( rank ) {
-		//this.setPosition( cc.p( 80, ( 590 - ( rank * 120 ) ) ) );
 		this.moveTo( cc.p( 80, ( 590 - ( rank * 120 ) ) ) );
 		this.updateScore();
 	},

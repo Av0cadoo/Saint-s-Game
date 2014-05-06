@@ -2,9 +2,9 @@ var Box = cc.Sprite.extend({
 	ctor: function() {
 		this._super();
 		this.initWithFile( 'images2/box/box.png', cc.rect( 0, 0, 100, 75 ) );
-	}
+	},
 
-	,changeColor: function( color ) {
+	changeColor: function( color ) {
 		if( color == 'red' ) {
 			this.setTextureRect( cc.rect( 100, 0, 100, 75 ) );
 		}
