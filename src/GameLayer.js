@@ -7,10 +7,14 @@ var GameLayer = cc.LayerColor.extend({
         this.bgm = new cc.SimpleAudioEngine();
         this.bgm.init();
         this.bgm.playMusic( 'sounds/18.mp3', true );
-        this.bgm.setMusicVolume( 0.7 );
+        this.bgm.setMusicVolume( 0.3 );
         this.isGameStop = true;
         this.isReset = true;
-
+        var backGround = new cc.Sprite;
+        backGround.init( 'images2/backGround.png' );
+        backGround.setPosition( new cc.p( 500, 300 ) );
+        
+        this.addChild( backGround );
         //field
         this.field = new Field();
         this.addChild( this.field );
@@ -43,7 +47,6 @@ var GameLayer = cc.LayerColor.extend({
 
         //time
         this.timeEvent = new Time();
-        this.time = Time.set.time;
         this.addChild( this.timeEvent );
 
         return true;
@@ -144,7 +147,7 @@ var GameLayer = cc.LayerColor.extend({
         this.field.changeMap( this.player2.getX(), this.player2.getY(), this.player2.getColor() );
         this.field.changeMap( this.player3.getX(), this.player3.getY(), this.player3.getColor() );
         this.field.changeMap( this.player4.getX(), this.player4.getY(), this.player4.getColor() );
-        if( this.timeEvent.isTimeUp() ) { this.stopGame(); }
+        if( this.timeEvent.isTimeUp() ) { this.stopGame(); this.rank.showWinner(); }
         var powerUp = this.power1.update( this.player1, this.player2, this.player3, this.player4 );
         if( powerUp !== -1 ) {
             this.runPower( powerUp );
@@ -163,6 +166,7 @@ var GameLayer = cc.LayerColor.extend({
         this.player4.stop();
         this.power1.stop();
         this.power2.stop();
+        this.rank.stop();
         this.timeEvent.stop();
         this.unscheduleUpdate();
     },
@@ -178,19 +182,21 @@ var GameLayer = cc.LayerColor.extend({
         this.player4.start();
         this.power1.start();
         this.power2.start();
+        this.rank.start();
         this.scheduleUpdate();
     },
 
     playAgain: function() {
         this.isReset = true;
         this.stopGame();
-        this.timeEvent.setTime( this.time );
+        this.timeEvent.setTime();
         this.timeEvent.removeScreen();
         this.field.reset();
         this.player1.reset();
         this.player2.reset();
         this.player3.reset();
         this.player4.reset();
+        this.rank.reset();
     },
 
     runPower: function( data ) {
@@ -209,6 +215,13 @@ var GameLayer = cc.LayerColor.extend({
     }
     
 });
+GameLayer.scene = function () {
+    var scene = cc.Scene.create();
+    var layer = new GameLayer();
+    layer.init();
+    scene.addChild( layer );
+    return scene;
+};
 
 var StartScene = cc.Scene.extend({
     onEnter: function() {

@@ -20,7 +20,8 @@
             ,'src/resource.js'
             ,'src/RankStat.js'
             ,'src/Power.js',
-            'src/Score.js'
+            'src/Score.js',
+            'src/Start.js'
 
         ]
     };

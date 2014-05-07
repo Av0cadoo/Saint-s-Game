@@ -16,7 +16,7 @@ var Time = cc.Sprite.extend({
 
         //screen
         this.timeupScreen = new cc.Sprite;
-		this.timeupScreen.init( 'images2/timeup3.png' );
+		this.timeupScreen.init( 'images2/time/timeup.png' );
 		this.timeupScreen.setPosition( new cc.p( 500, 300 ) );
 		
 	},
@@ -30,8 +30,8 @@ var Time = cc.Sprite.extend({
 		}
 	},
 
-	setTime: function( time ) {
-		this.time = time;
+	setTime: function() {
+		this.time = Time.set.time;
 		this.timeLabel2.setString( this.time );
 	},
 
@@ -42,7 +42,7 @@ var Time = cc.Sprite.extend({
 	},
 
 	start: function() {
-		this.time = Time.set.time;
+		this.run();
 		this.schedule( this.run, 1, Infinity, 0 );
 	},
 
@@ -81,5 +81,5 @@ var Time = cc.Sprite.extend({
 });
 
 Time.set = {
-    time: 60
+    time: 5
 };

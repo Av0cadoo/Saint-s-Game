@@ -1,16 +1,18 @@
 var g_resources = [
     //image
-    { src: 'images2/box/box.png' },
+    { src: 'images2/box/box3.png' },
     { src: 'images2/player/poring/1.png' },
     { src: 'images2/player/poporing/1.png' },
     { src: 'images2/player/drop/1.png' },
     { src: 'images2/player/marin/1.png' },
-    { src: 'images2/timeup3.png' },
+    { src: 'images2/time/timeup.png' },
     { src: 'images2/power/power.png' },
     { src: 'images2/rank/p1-pro.png' },
     { src: 'images2/rank/p2-pro.png' },
     { src: 'images2/rank/p3-pro.png' },
     { src: 'images2/rank/p4-pro.png' },
+    { src: 'images2/startgame1.png' },
+    { src: 'images2/backGround.png' },
     //plist
 
     //fnt

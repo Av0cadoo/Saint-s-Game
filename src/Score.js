@@ -4,13 +4,16 @@ var Score = cc.Sprite.extend({
 		this.path = path;
 		this.field = field;
 		this.init( 'images2/rank/' + path + '-pro.png' );
-		this.scoreLabel = cc.LabelTTF.create( '00', 'Arial', 30 );
+		this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
 		this.scoreLabel.setFontFillColor( this.getColor4B( path ) );
+		this.scoreLabel.enableStroke( cc.c4b( 0, 0, 0 ), 1, true);
 		this.scoreLabel.setPosition( cc.p( 120, 25 ) );
 		this.addChild( this.scoreLabel );
+		this.rank = 0;
 	},
 
 	setRank: function( rank ) {
+		this.rank = rank;
 		this.moveTo( cc.p( 80, ( 590 - ( rank * 120 ) ) ) );
 		this.updateScore();
 	},
@@ -33,6 +36,10 @@ var Score = cc.Sprite.extend({
 		else if( name == 'p4' ) return this.field.getBlueScore();
 	},
 
+	resetScore: function() {
+		this.scoreLabel.setString( '0' );
+	},
+
 	updateScore: function() {
 		this.scoreLabel.setString( this.getScore( this.path ) );
 	},
@@ -40,5 +47,17 @@ var Score = cc.Sprite.extend({
 	moveTo: function( position ) {
 		var move = cc.MoveTo.create( 0.15, position );
 		this.runAction( move );
-	}
+	},
+
+	getRank: function() {
+		return this.rank;
+	},
+	
+	win: function( i ) {
+		var director = cc.Director.getInstance();
+        var winsize = director.getWinSize();
+        var pos = cc.p( ( 150 * i ) + ( winsize.width / 4 ), winsize.height / 1.4 );
+		var move = cc.MoveTo.create( 0.15, pos );
+		this.runAction( move );
+	},
 })

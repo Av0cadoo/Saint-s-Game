@@ -191,4 +191,15 @@ var Field = cc.Node.extend({
 		}
 		return 4;
 	},
+
+	getWinnerNumber: function() {
+		var rank = this.getRank();
+		var i = 0;
+		for ( i = 0; i < rank.length - 1; i++ ) {
+			if( rank[ i ][ 1 ] != rank[ i+1 ][ 1 ] ) break;
+		}
+		i++;
+		return i;
+	},
+
 })

@@ -8,7 +8,6 @@ var Player = cc.Sprite.extend({
 		this.color = color;
 		this.pos = this.getPosition();
 		this.init( 'images2/player/' + name + '/1.png' );
-
 		if( color == 'red' ) {
 			this.setDir( Player.DIR.RIGHT );
 			this.x = 0;
@@ -18,7 +17,7 @@ var Player = cc.Sprite.extend({
 			this.setDir( Player.DIR.DOWN );
 			this.x = 0;
 			this.y = 7;
-		}
+		}	
 		else if( color == 'green' ) {
 			this.setDir( Player.DIR.UP );
 			this.x = 7;
@@ -67,7 +66,7 @@ var Player = cc.Sprite.extend({
 	},
 
 	updatePosition: function() {
-		this.setPosition( new cc.p( ( 250 + this.y * 100 ), 565 - ( this.x * 75 ) ) );
+		this.setPosition( new cc.p( ( 250 + this.y * 100 ), 563 - ( this.x * 75 ) ) );
 	},
 
 
@@ -174,7 +173,7 @@ var Player = cc.Sprite.extend({
 			this.start();
 			speedBonusTime = 3;
 		}
-	}
+	},
 	
 });
 
