@@ -9,18 +9,22 @@ var Power = cc.Sprite.extend({
 
 	update: function( p1, p2, p3, p4 ) {
 		if( p1.getX() == this.x && p1.getY() == this.y ) {
+			cc.AudioEngine.getInstance().playEffect( 'sounds/Cure.wav' );
 			this.hide();
 			return [ "p1", this.type ];
 		}
 		if( p2.getX() == this.x && p2.getY() == this.y ) {
+			cc.AudioEngine.getInstance().playEffect( 'sounds/Cure.wav' );
 			this.hide();
 			return [ "p2", this.type ];
 		}
 		if( p3.getX() == this.x && p3.getY() == this.y ) {
+			cc.AudioEngine.getInstance().playEffect( 'sounds/Cure.wav' );
 			this.hide();
 			return [ "p3", this.type ];
 		}
 		if( p4.getX() == this.x && p4.getY() == this.y ) {
+			cc.AudioEngine.getInstance().playEffect( 'sounds/Cure.wav' );
 			this.hide();
 			return [ "p4", this.type ];
 		}

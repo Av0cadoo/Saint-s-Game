@@ -12,6 +12,7 @@ var g_resources = [
     { src: 'images2/rank/p3-pro.png' },
     { src: 'images2/rank/p4-pro.png' },
     { src: 'images2/startgame1.png' },
+    { src: 'images2/choose.png' },
     { src: 'images2/backGround.png' },
     //plist
 
@@ -24,5 +25,6 @@ var g_resources = [
 
     //effect
     { src: 'sounds/poring.mp3' },
+    { src: 'sounds/Cure.wav' },
     { src: 'sounds/time2.mp3' }
 ];
