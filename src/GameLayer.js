@@ -1,5 +1,6 @@
 var GameLayer = cc.LayerColor.extend({
-    init: function() {
+    init: function( bot ) {
+        this.bot = bot;
         this._super( new cc.Color4B( 136, 136, 136, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.setKeyboardEnabled( true );
@@ -49,6 +50,11 @@ var GameLayer = cc.LayerColor.extend({
         this.timeEvent = new Time();
         this.addChild( this.timeEvent );
 
+        if( this.bot[ 0 ] ) this.player1.setBot();
+        if( this.bot[ 1 ] ) this.player2.setBot();
+        if( this.bot[ 2 ] ) this.player3.setBot();
+        if( this.bot[ 3 ] ) this.player4.setBot();
+
         return true;
     },
 
@@ -68,78 +74,89 @@ var GameLayer = cc.LayerColor.extend({
         if( e == 13 ) { this.startGame(); }
         if( e == 81 ) { this.BGM(); }
         if( this.isGameStop ) { return; }
-        switch( e ) {
-        case 87:
-            //up
-            this.player1.setDir( Player.DIR.UP );
-            break;
-        case 83:
-            //down
-            this.player1.setDir( Player.DIR.DOWN );
-            break;
-        case 65:
-            //left
-            this.player1.setDir( Player.DIR.LEFT );
-            break;
-        case 68:                                                   //w a s d
-            //right
-            this.player1.setDir( Player.DIR.RIGHT );
-            break;        
+        if( !this.bot[ 0 ] ) {
+            switch( e ) {
+                case 87:
+                    //up
+                    this.player1.setDir( Player.DIR.UP );
+                    break;
+                case 83:
+                    //down
+                    this.player1.setDir( Player.DIR.DOWN );
+                    break;
+                case 65:
+                    //left
+                    this.player1.setDir( Player.DIR.LEFT );
+                    break;
+                case 68:                                                   //w a s d
+                    //right
+                    this.player1.setDir( Player.DIR.RIGHT );
+                    break; 
+            }
+        }      
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        case 80:
-            //up
-            this.player2.setDir( Player.DIR.UP );
-            break;
-        case 59:
-            //down
-            this.player2.setDir( Player.DIR.DOWN );
-            break;
-        case 76:
-            //left
-            this.player2.setDir( Player.DIR.LEFT );
-            break;
-        case 222:                                                   // p ; l '
-            //right
-            this.player2.setDir( Player.DIR.RIGHT );
-            break;
+        if( !this.bot[ 1 ] ) {
+            switch( e ) {
+                case 80:
+                    //up
+                    this.player2.setDir( Player.DIR.UP );
+                    break;
+                case 59:
+                    //down
+                    this.player2.setDir( Player.DIR.DOWN );
+                    break;
+                case 76:
+                    //left
+                    this.player2.setDir( Player.DIR.LEFT );
+                    break;
+                case 222:                                                   // p ; l '
+                    //right
+                    this.player2.setDir( Player.DIR.RIGHT );
+                    break;
+            }
+        }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        case 89:
-            //up
-            this.player3.setDir( Player.DIR.UP );
-            break;
-        case 72:
-            //down
-            this.player3.setDir( Player.DIR.DOWN );
-            break;
-        case 71:
-            //left
-            this.player3.setDir( Player.DIR.LEFT );
-            break;
-        case 74:                                                   // y h g j
-            //right
-            this.player3.setDir( Player.DIR.RIGHT );
-            break;
+        if( !this.bot[ 2 ] ) {
+            switch( e ) {
+                case 89:
+                    //up
+                    this.player3.setDir( Player.DIR.UP );
+                    break;
+                case 72:
+                    //down
+                    this.player3.setDir( Player.DIR.DOWN );
+                    break;
+                case 71:
+                    //left
+                    this.player3.setDir( Player.DIR.LEFT );
+                    break;
+                case 74:                                                   // y h g j
+                    //right
+                    this.player3.setDir( Player.DIR.RIGHT );
+                    break;
+            }
+        }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        case 38:
-            //up
-            this.player4.setDir( Player.DIR.UP );
-            break;
-        case 40:
-            //down
-            this.player4.setDir( Player.DIR.DOWN );
-            break;
-        case 37:
-            //left
-            this.player4.setDir( Player.DIR.LEFT );
-            break;
-        case 39:                                                   // arrow key
-            //right
-            this.player4.setDir( Player.DIR.RIGHT );
-            break;
-       }
+        if( !this.bot[ 3 ] ) {
+            switch( e ) {
+                case 38:
+                    //up
+                    this.player4.setDir( Player.DIR.UP );
+                    break;
+                case 40:
+                    //down
+                    this.player4.setDir( Player.DIR.DOWN );
+                    break;
+                case 37:
+                    //left
+                    this.player4.setDir( Player.DIR.LEFT );
+                    break;
+                case 39:                                                   // arrow key
+                    //right
+                    this.player4.setDir( Player.DIR.RIGHT );
+                    break;
+            }
+        }
     },
 
     update: function() {
@@ -215,19 +232,11 @@ var GameLayer = cc.LayerColor.extend({
     }
     
 });
-GameLayer.scene = function () {
+
+GameLayer.scene = function ( bot ) {
     var scene = cc.Scene.create();
     var layer = new GameLayer();
-    layer.init();
+    layer.init( bot );
     scene.addChild( layer );
     return scene;
 };
-
-var StartScene = cc.Scene.extend({
-    onEnter: function() {
-        this._super();
-        var layer = new GameLayer();
-        layer.init();
-        this.addChild( layer );
-    }
-});

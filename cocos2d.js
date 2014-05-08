@@ -21,7 +21,8 @@
             ,'src/RankStat.js'
             ,'src/Power.js',
             'src/Score.js',
-            'src/Start.js'
+            'src/Start.js',
+            'src/Choose.js'
 
         ]
     };

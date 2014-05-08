@@ -202,4 +202,7 @@ var Field = cc.Node.extend({
 		return i;
 	},
 
+	getMap: function() {
+		return this.MAP;
+	}
 })

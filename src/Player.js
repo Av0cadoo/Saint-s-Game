@@ -72,10 +72,10 @@ var Player = cc.Sprite.extend({
 
 	setDir: function( dir ) {
 		this.dir = dir;
-		if( this.dir == 3 ) {
+		if( this.dir == Player.DIR.LEFT ) {
 			this.setFlippedX( false );
 		}
-		else if( this.dir == 4 ) {
+		else if( this.dir == Player.DIR.RIGHT ) {
 			this.setFlippedX( true );
 		}
 	},
@@ -152,21 +152,21 @@ var Player = cc.Sprite.extend({
 		else if( type == Power.TYPE.SPEEDUP ) {
 			this.stop();
 			this.schedule( this.move, moveSpeed - 0.15, Infinity, 0 );
-			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
+			this.schedule( this.countTime, 1, speedBonusTime + 1, 0 );
 		}
 		else if( type == Power.TYPE.SPEEDDOWN ) {
 			this.stop();
 			this.schedule( this.move, moveSpeed + 0.15, Infinity, 0 );
-			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
+			this.schedule( this.countTime, 1, speedBonusTime + 1, 0 );
 		}
 		else if( type == Power.TYPE.TRAP ) {
 			this.stop();
-			this.schedule( this.CountTime, 1, speedBonusTime + 1, 0 );
+			this.schedule( this.countTime, 1, speedBonusTime + 1, 0 );
 		}
 
 	},
 
-	CountTime: function() {
+	countTime: function() {
 		speedBonusTime--;
 		if( speedBonusTime == 0 ) {
 			this.stop();
@@ -174,6 +174,26 @@ var Player = cc.Sprite.extend({
 			speedBonusTime = 3;
 		}
 	},
+
+	setBot: function() {
+		this.schedule( this.botMove, 0.2, Infinity, 0 );
+	},
+
+	botMove: function() {
+		//var map = this.field.getMap();
+		if( this.x == 0 ) this.setDir( Player.DIR.DOWN );
+		if( this.y == 0 ) this.setDir( Player.DIR.RIGHT );
+		if( this.x == 7 ) this.setDir( Player.DIR.UP );
+		if( this.y == 7 ) this.setDir( Player.DIR.LEFT );
+		var random = parseInt( ( Math.random() * ( 5 - 1 + 1 ) ) + 1, 10 );
+		if( random == 1 ) {
+			var ran = parseInt( ( Math.random() * ( 4 - 1 + 1 ) ) + 1, 10 );;
+			if( ran == 1 ) this.setDir( Player.DIR.UP );
+			else if( ran == 2 ) this.setDir( Player.DIR.DOWN );
+			else if( ran == 3 ) this.setDir( Player.DIR.LEFT );
+			else if( ran == 4 ) this.setDir( Player.DIR.RIGHT );
+		}
+	}
 	
 });
 

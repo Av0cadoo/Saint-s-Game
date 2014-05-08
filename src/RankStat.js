@@ -12,7 +12,7 @@ var RankStat = cc.Sprite.extend({
 		this.Label = cc.LabelTTF.create( '~ THE WINNER :', 'Arial', 60 );
         this.Label.setFontFillColor( new cc.Color4B( 0, 0, 0, 0 ) );
         this.Label.setPosition( pos );
-        this.Label.enableStroke( cc.c4b( 70, 200, 250 ), 3, true);
+        this.Label.enableStroke( cc.c4b( 247, 245, 0 ), 3, true);
 		this.addChild( this.red );
 		this.addChild( this.orange );
 		this.addChild( this.green );
@@ -36,6 +36,10 @@ var RankStat = cc.Sprite.extend({
 
 	stop: function() {
 		this.unschedule( this.update );
+		this.red.start( this.field.getRedRank() );
+		this.orange.start( this.field.getOrangeRank() );
+		this.green.start( this.field.getGreenRank() );
+		this.blue.start( this.field.getBlueRank() );
 	},
 
 	reset: function() {
@@ -44,6 +48,7 @@ var RankStat = cc.Sprite.extend({
 			scoreArr[ i ].resetScore();
 			scoreArr[ i ].start( i + 1 );
 		}
+		this.stop();
 		this.removeChild( this.Label );
 	},
 

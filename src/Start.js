@@ -12,7 +12,7 @@ var Start = cc.Layer.extend({
 
         var director = cc.Director.getInstance();
         var winsize = director.getWinSize();
-        var centerpos = cc.p(winsize.width / 2, winsize.height / 2);
+        var centerpos = cc.p( winsize.width / 2, winsize.height / 2 );
 
         var bg = cc.Sprite.create( 'images2/startgame1.png' );
         bg.setPosition( centerpos );
@@ -22,7 +22,7 @@ var Start = cc.Layer.extend({
         var color = cc.c3b( 255, 255, 255 );
         var textField = cc.LabelTTF.create( "CLICK TO START", "Arial", 50 );
         textField.setAnchorPoint( cc.p( 0.5, 0.5 ) );
-        textField.setPosition( cc.p( screenWidth / 2, 140 ) );
+        textField.setPosition( cc.p( screenWidth / 2, 100 ) );
         textField.setColor( color );
         textField.setOpacity( 0 );
         
@@ -40,7 +40,7 @@ var Start = cc.Layer.extend({
     },
 
     onPlay : function(){
-        var scene = GameLayer.scene();
+        var scene = Choose.scene();
         cc.Director.getInstance().replaceScene( cc.TransitionFade.create( 1.5, scene ) );
     }
 });
