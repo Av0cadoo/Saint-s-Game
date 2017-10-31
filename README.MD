@@ -1,1 +1,1 @@
-2D game implelmented with cocos2d for ISP class @kasetsart university
+2D game implemented with Cocos2D for ISP class @Kasetsart University
